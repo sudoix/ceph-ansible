@@ -1,0 +1,5 @@
+---
+# tasks file for preinstall
+
+- name: Basic setup
+  import_tasks: basic.yaml

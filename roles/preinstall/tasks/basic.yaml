@@ -1,0 +1,27 @@
+- name: Set timezone to UTC
+  timezone:
+    name: Etc/UTC
+
+- name: Set hostname
+  command: hostnamectl set-hostname {{ inventory_hostname }}
+
+- name: Add hostname to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ inventory_hostname }} {{ private_ip }}"
+    state: present
+
+- name: Install neccessary packages
+  dnf:
+    name:
+      - git
+      - vim
+      - lvm2
+      - wget
+      - nload
+      - poeman
+      - python3
+      - python3-pip
+      - iptables-persistent
+    state: present
+
