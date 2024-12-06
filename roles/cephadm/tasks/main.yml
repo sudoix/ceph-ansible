@@ -1,0 +1,4 @@
+---
+# tasks file for cephadm
+- name: Cephadm setup
+  import_tasks: cephadm.yaml
