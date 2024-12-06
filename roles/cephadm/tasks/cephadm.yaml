@@ -1,0 +1,10 @@
+# curl-based installation
+
+- name: Download cephadm binary
+  ansible.builtin.get_url:
+    url: "{{ cephadm_url }}"
+    dest: "{{ cephadm_destination }}"
+    mode: 0755
+
+- name: Add repository
+  shell: "{{ cephadm_destination }} add-repo --release {{ ceph_release_name }}"

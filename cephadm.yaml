@@ -1,0 +1,12 @@
+# - hosts: all
+#   roles:
+#     - role: preinstall
+#   gather_facts: no
+#   any_errors_fatal: true
+
+- hosts: ceph_nodes
+  roles:
+    - role: cephadm
+  gather_facts: no
+  any_errors_fatal: true
+
