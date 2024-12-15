@@ -1,12 +1,18 @@
-# - hosts: all
-#   roles:
-#     - role: preinstall
-#   gather_facts: no
-#   any_errors_fatal: true
+- hosts: all
+  roles:
+    - role: preinstall
+  gather_facts: true
+  any_errors_fatal: true
 
 - hosts: ceph_nodes
   roles:
     - role: cephadm
-  gather_facts: no
+  gather_facts: true
+  any_errors_fatal: true
+
+- hosts: ceph_nodes
+  roles:
+    - role: cephadm
+  gather_facts: true
   any_errors_fatal: true
 

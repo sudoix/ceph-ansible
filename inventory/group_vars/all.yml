@@ -3,8 +3,8 @@ install_ansible_modules: "true"
 disable_transparent_huge_pages: "true"
 
 # Cephadm
-ceph_release: "18.2.0" # (reef) replace this with the active release
+ceph_release: "18.2.4" # (reef) replace this with the active release
 ceph_release_name: "reef"
-cephadm_url: "https://pkgproxy.ionos.org/download.ceph.com/rpm-{{ ceph_release }}/el9/noarch/cephadm" # Change to your own mirror or official url
-# cephadm_url: "https://download.ceph.com/rpm-{{ ceph_release }}/el9/noarch/cephadm" # Change to your own mirror or official url
+# cephadm_url: "https://pkgproxy.ionos.org/download.ceph.com/rpm-{{ ceph_release }}/el9/noarch/cephadm" # Change to your own mirror or official url
+cephadm_url: "https://download.ceph.com/rpm-{{ ceph_release }}/el9/noarch/cephadm" # Change to your own mirror or official url
 cephadm_destination: "/root/cephadm"
