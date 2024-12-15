@@ -8,3 +8,15 @@
 
 - name: Add repository
   shell: "{{ cephadm_destination }} add-repo --release {{ ceph_release_name }}"
+
+- name: Install cephadm
+  shell: "{{ cephadm_destination }} install"
+
+- name: Get cephadm version to ensure installation was successful
+  shell: cephadm version
+  register: cephadm_version
+
+- name: Print cephadm version
+  debug:
+    msg: "{{ cephadm_version.stdout }}"
+

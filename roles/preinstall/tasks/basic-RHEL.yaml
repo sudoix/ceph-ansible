@@ -1,0 +1,81 @@
+- name: Set timezone to UTC
+  timezone:
+    name: Etc/UTC
+
+- name: Set hostname
+  command: hostnamectl set-hostname {{ inventory_hostname }}
+
+- name: Add hostname
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: "127.0.0.1 {{ inventory_hostname }} localhost"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Add hostname
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: "127.0.0.1 {{ inventory_hostname }} localhost"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Add all servers hostname to /etc/hosts
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    line: "{{ hostvars[item].private_ip }} {{ item }} {{ item }}.{{ domain }}"
+    state: present
+    create: no
+  loop: "{{ groups['all'] }}"
+  when: hostvars[item].private_ip is defined
+
+- name: Enable epel-release repo
+  dnf:
+    name:
+      - epel-release
+    state: present
+
+- name: Install neccessary packages
+  dnf:
+    name:
+      - git
+      - vim
+      - lvm2
+      - wget
+      - curl
+      - nload
+      - chrony
+      - podman
+      - python3
+      - python3-pip
+      - iptables-services
+    state: present
+
+- name: Disable firewalld
+  service:
+    name: firewalld
+    state: stopped
+    enabled: false
+
+- name: Disable SELinux
+  ansible.posix.selinux:
+    policy: targeted
+    state: disabled
+
+- name: start and enable chronyd
+  service:
+    name: chronyd
+    state: started
+    enabled: true
+
+- name: start and enable iptables
+  service:
+    name: iptables
+    state: started
+    enabled: true
+
+# - name: Reboot servers and wait for reboot
+#   reboot:

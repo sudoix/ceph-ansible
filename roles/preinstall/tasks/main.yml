@@ -2,4 +2,5 @@
 # tasks file for preinstall
 
 - name: Basic setup
-  import_tasks: basic.yaml
+  import_tasks: basic-RHEL.yaml
+  when: ansible_facts['os_family'] == 'RedHat'
